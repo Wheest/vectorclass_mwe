@@ -33,9 +33,12 @@ int main(int argc, char *argv[])
     init_vector(vec_a, vec_b, SIZE);
     auto t1 = std::chrono::high_resolution_clock::now();
 
+    for (auto j = 0; j < 2000; j++)
+    {
 #pragma loop(no_vector)
-    for (auto i = 0; i < SIZE; i++)
-        result[i] = vec_a[i]  + vec_b[i];
+	for (auto i = 0; i < SIZE; i++)
+	    result[i] = vec_a[i]  + vec_b[i];
+    }
 
     auto t2 = std::chrono::high_resolution_clock::now();
     auto total = std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count();
@@ -56,8 +59,11 @@ int main(int argc, char *argv[])
 
     t1 = std::chrono::high_resolution_clock::now();
 
-    for (auto i = 0; i < SIZE/8; i++)
-	resvec[i] = avec[i] + bvec[i];
+    for (auto j = 0; j < 2000; j++)
+    {
+	for (auto i = 0; i < SIZE/8; i++)
+	    resvec[i] = avec[i] + bvec[i];
+    }
 
     t2 = std::chrono::high_resolution_clock::now();
 
