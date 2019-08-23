@@ -12,4 +12,3 @@ include_directories(${Mwe_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++17 -march=native -fno-vectorize -fno-tree-vectorize -fno-slp-vectorize")
 
 add_executable(simd_mwe src/main.cpp ${GEN_ARCH_FILES})
-#set_target_properties(simd_mwe PROPERTIES COMPILE_FLAGS "-msse2")

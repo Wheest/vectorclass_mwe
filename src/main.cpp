@@ -49,26 +49,33 @@ int main(int argc, char *argv[])
     // SIMD version
     init_vector(vec_a, vec_b, SIZE);
 
-    Vec8f avec[SIZE / 8], bvec[SIZE / 8], resvec[SIZE / 8];
-
-    for (auto i = 0; i < SIZE; i+=8)
-    {
-	avec[i/8].load(&vec_a[i]);
-	bvec[i/8].load(&vec_b[i]);
-    }
+    Vec8f a, b, c;
 
     t1 = std::chrono::high_resolution_clock::now();
 
     for (auto j = 0; j < 2000; j++)
     {
-	for (auto i = 0; i < SIZE/8; i++)
-	    resvec[i] = avec[i] + bvec[i];
+	for (auto i = 0; i < SIZE; i+=8)
+	{
+	    a.load(&vec_a[i]);
+	    b.load(&vec_b[i]);
+	    c = a + b;
+	    c.store(&result[i]);
+	}
+    }
+
+    for (auto j = 0; j < 2000; j++)
+    {
+	for (auto i = 0; i < SIZE; i+=8)
+	{
+	    a.load(&vec_a[i]);
+	    b.load(&vec_b[i]);
+	    c = a + b;
+	    c.store(&result[i]);
+	}
     }
 
     t2 = std::chrono::high_resolution_clock::now();
-
-    for (auto i = 0; i < SIZE; i+=8)
-	resvec[i/8].store(&result[i]);
 
     total = std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count();
     test_result(result, SIZE);
