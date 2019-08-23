@@ -64,17 +64,6 @@ int main(int argc, char *argv[])
 	}
     }
 
-    for (auto j = 0; j < 2000; j++)
-    {
-	for (auto i = 0; i < SIZE; i+=8)
-	{
-	    a.load(&vec_a[i]);
-	    b.load(&vec_b[i]);
-	    c = a + b;
-	    c.store(&result[i]);
-	}
-    }
-
     t2 = std::chrono::high_resolution_clock::now();
 
     total = std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count();

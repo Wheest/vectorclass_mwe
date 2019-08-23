@@ -10,7 +10,7 @@ This repository uses git submodules, thus to build the repo, and run the example
 git clone --recurse-submodules https://github.com/Wheest/vectorclass_mwe
 mkdir -p vectorclass_mwe/_build
 cd vectorclass_mwe/_build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 ./simd_mwe
 ```
